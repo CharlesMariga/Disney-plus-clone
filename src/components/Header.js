@@ -68,6 +68,22 @@ const NavMenu = styled.div`
       font-size: 13px;
       letter-spacing: 1.42px;
       text-transform: uppercase;
+      position: relative;
+
+      &::after {
+        content: "";
+        height: 2px;
+        background-color: white;
+        width: 0px;
+        position: absolute;
+        left: 0;
+        transition: all 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        bottom: -6px;
+      }
+
+      &:hover::after {
+        width: 100%;
+      }
     }
   }
 `;
