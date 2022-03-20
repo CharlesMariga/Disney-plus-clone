@@ -1,47 +1,54 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
+import db from "../firebase";
+import { doc, getDoc } from "firebase/firestore";
 
 const Detail = () => {
+  const { id } = useParams();
+  const [movie, setMovie] = useState(null);
+
+  useEffect(() => {
+    const docRef = doc(db, "movies", id);
+    getDoc(docRef).then((docSnap) => {
+      if (docSnap.exists()) {
+        setMovie(docSnap.data());
+      } else {
+        console.log("No such document!");
+      }
+    });
+  }, [id]);
+
   return (
     <Container>
-      <Background>
-        <img
-          src="https://cdn.vox-cdn.com/thumbor/wJ71E7nJ_4Wj0btm5seEnHNJ4Xk=/0x0:4096x2304/1200x800/filters:focal(1973x1175:2627x1829)/cdn.vox-cdn.com/uploads/chorus_image/image/60190709/BO_RGB_s120_22a_cs_pub.pub16.318.0.jpg"
-          alt=""
-        />
-      </Background>
-      <ImgTitle>
-        <img
-          src="https://images.fanart.tv/fanart/bao-5e7d7d556c45a.png"
-          alt=""
-        />
-      </ImgTitle>
-      <Controls>
-        <PlayButton>
-          <img src="/images/play-icon-black.png" alt="" />
-          <span>Play</span>
-        </PlayButton>
-        <TrailerButton>
-          <img src="/images/play-icon-white.png" alt="" />
-          <span>Trailer</span>
-        </TrailerButton>
-        <AddButton>
-          <span>+</span>
-        </AddButton>
-        <GroupWatchButton>
-          <img src="/images/group-icon.png" alt="" />
-        </GroupWatchButton>
-      </Controls>
-      <SubTitle>
-        2018 &#183; 7m &#183; Family, Fantasy, Kids, Animation
-      </SubTitle>
-      <Description>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque unde
-        eligendi laborum, est dolor natus beatae obcaecati minima ad quae modi
-        necessitatibus. Animi perferendis nihil quidem unde quo! Nulla odio
-        placeat, delectus cumque soluta iste vel cum recusandae deleniti ex
-        itaque totam nam quos laudantium nostrum corporis distinctio quam ipsam!
-      </Description>
+      {movie && (
+        <>
+          <Background>
+            <img src={movie.backgroundImg} alt={movie.title} />
+          </Background>
+          <ImgTitle>
+            <img src={movie.titleImg} alt={movie.title} />
+          </ImgTitle>
+          <Controls>
+            <PlayButton>
+              <img src="/images/play-icon-black.png" alt="" />
+              <span>Play</span>
+            </PlayButton>
+            <TrailerButton>
+              <img src="/images/play-icon-white.png" alt="" />
+              <span>Trailer</span>
+            </TrailerButton>
+            <AddButton>
+              <span>+</span>
+            </AddButton>
+            <GroupWatchButton>
+              <img src="/images/group-icon.png" alt="" />
+            </GroupWatchButton>
+          </Controls>
+          <SubTitle>{movie.subTitle}</SubTitle>
+          <Description>{movie.description}</Description>
+        </>
+      )}
     </Container>
   );
 };
@@ -70,9 +77,10 @@ const Background = styled.div`
 const ImgTitle = styled.div`
   height: 30vh;
   min-height: 170px;
-  width: 35vw;
+  width: 30vw;
   min-width: 200px;
   margin-top: 60px;
+  margin-bottom: 40px;
 
   img {
     width: 100%;
