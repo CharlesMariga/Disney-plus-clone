@@ -6,28 +6,28 @@ const Header = () => {
     <Nav>
       <Logo src="/images/logo.svg" />
       <NavMenu>
-        <a>
-          <img src="/images/home-icon.svg" />
+        <a href="/">
+          <img src="/images/home-icon.svg" alt="" />
           <span>Home</span>
         </a>
-        <a>
-          <img src="/images/search-icon.svg" />
+        <a href="/search">
+          <img src="/images/search-icon.svg" alt="" />
           <span>Search</span>
         </a>
-        <a>
-          <img src="/images/watchlist-icon.svg" />
+        <a href="/watchlist">
+          <img src="/images/watchlist-icon.svg" alt="" />
           <span>Watchlist</span>
         </a>
-        <a>
-          <img src="/images/original-icon.svg" />
+        <a href="/orignials">
+          <img src="/images/original-icon.svg" alt="" />
           <span>Originals</span>
         </a>
-        <a>
-          <img src="/images/movie-icon.svg" />
+        <a href="/movies">
+          <img src="/images/movie-icon.svg" alt="" />
           <span>Movies</span>
         </a>
-        <a>
-          <img src="/images/series-icon.svg" />
+        <a href="/series">
+          <img src="/images/series-icon.svg" alt="" />
           <span>Series</span>
         </a>
       </NavMenu>
@@ -60,6 +60,7 @@ const NavMenu = styled.div`
     align-items: center;
     padding: 0 12px;
     cursor: pointer;
+    color: inherit;
 
     img {
       height: 20px;
